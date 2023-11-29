@@ -14,7 +14,16 @@ module.exports = defineConfig({
                 },
             ],
         }      
-    }
+    },
+    devServer: {
+        proxy: {
+            '^/api': {
+                target: 'https://dist.nd.ru',
+                changeOrigin: true
+            }
+        }
+    },
+
 })
 
 

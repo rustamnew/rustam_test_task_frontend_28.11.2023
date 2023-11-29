@@ -1,0 +1,91 @@
+.note {
+    .note__add {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+
+        border-radius: 50%;
+        box-shadow: 0px 15px 46px -10px rgba(0, 0, 0, 0.60);
+    }
+
+    .note__list {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 40px;
+        padding-bottom: 20px;
+
+        .note__item {
+            background-color: $green-light;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            padding: 8px;
+
+            word-break: break-word;
+
+            width: 30%;
+            height: auto;
+
+            position: relative;
+
+            box-shadow: 0px 15px 15px -10px rgba(0, 0, 0, 0.40);
+
+            &::before {
+                content: '';
+                width: 40px;
+                height: 40px;
+                position: absolute;
+                top: 0;
+                right: 0;
+
+                clip-path: polygon(0 0, 0% 100%, 100% 100%);
+
+                background-color: $green;
+
+                border-radius: 0 0 0 12px;
+            }
+
+            &::after {
+                content: '';
+                width: 41px;
+                height: 41px;
+                position: absolute;
+                top: -1px;
+                right: -1px;
+
+                clip-path: polygon(100% 0, 0 0, 100% 100%);
+
+                background-color: $dark;
+
+                border-radius: 0 0 0 6px;
+            }
+
+            .note__item-title {
+                padding: 20px 28px;
+                border-bottom:  1px solid $green;
+            }
+            .note__item-text {
+                padding: 20px 28px;
+            }
+            .note__item-remove {
+                margin-top: 36px;
+                margin-left: auto;
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width:768px) {
+    .note {
+        .note__list {
+            .note__item {
+                width: 100%;
+            }
+        } 
+    } 
+}
+@media screen and (max-width:360px) {
+    
+}

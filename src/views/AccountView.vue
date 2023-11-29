@@ -1,5 +1,15 @@
+<script>
+import NoteList from '@/components/NoteList.vue'
+
+export default {
+    components: {
+        NoteList
+    }
+}
+</script>
+
 <template>
-  <div class="about">
-    <h1>Личный кабинет</h1>
-  </div>
+    <div class="account">
+        <NoteList />
+    </div>
 </template>

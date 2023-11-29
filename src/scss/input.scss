@@ -1,0 +1,113 @@
+.input {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 20px 0;
+
+    
+
+    .input__title {
+        position: absolute;
+        top: -8px;
+        left: 25px;
+        right: 0;
+
+        color: $gray;
+    }
+
+    .input__error {
+        position: absolute;
+        bottom: -10px;
+        left: 25px;
+        width: 80%;
+
+        color: #FF7461;
+    }
+    .input__counter {
+        position: absolute;
+        bottom: -8px;
+        right: 0;
+        width: 20%;
+    }
+
+    .input__password-mode {
+        background: none;
+        border: none;
+        appearance: none;
+        position: absolute;
+        right: 10%;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+
+        display: flex;
+        align-items: center;
+    }
+
+    input {
+        padding: 23px 28px;
+        border-radius: 36px;
+        border: none;
+        &:focus {
+            outline: none;
+        }
+    }
+    textarea {
+        padding: 16px 28px;
+        resize: none;
+        height: 168px;
+        border-radius: 36px;
+        border: none;
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+
+.button {
+    background-color: $green-light;
+    padding: 12px 24px;
+
+    display: flex;
+    align-items: center;
+    border: none;
+
+    outline: none;  
+    border-radius: 32px;
+    color: $white;
+    cursor: pointer;
+
+    &.round {
+        padding: 20px;
+        border-radius: 50%;
+    }
+
+    &:hover {
+        background-color: $green-middle;
+    }
+
+    &:active { 
+        background-color: $green-dark;
+    } 
+
+    &:disabled {
+        background-color: $gray;
+    }
+
+    .button__text {
+        margin-left: 12px;
+
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+
+    
+}
+
+
+@media screen and (max-width:360px) {
+    
+}

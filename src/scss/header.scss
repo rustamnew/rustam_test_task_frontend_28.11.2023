@@ -1,0 +1,122 @@
+.header {
+    padding: 40px 0;
+
+    .container {
+        display: flex;
+        justify-content: space-between;
+
+        .header__logo {
+            margin-right: 22px;
+            display: flex;
+            align-items: center;
+
+            svg {
+                width: 218px;
+                max-width: 100%;
+            }
+
+            .mobile {
+                display: none;
+            }
+        }
+
+        .header__user {
+            position: relative;
+
+            &:hover {
+                .header__user-dropdown {
+                    display: flex;
+                }
+            }
+
+            a {
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+
+                & > .link {
+                    color: $white;
+                }
+            }
+
+            
+
+            .header__user-icon {
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                width: 56px;
+                height: 56px;
+
+                background-color: $dark-middle;
+
+                margin-left: 12px;
+            }
+
+
+
+            .header__user-dropdown {
+                display: none;
+                flex-direction: column;
+                align-items: flex-end;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                z-index: 10;
+                
+
+                .dropdown__decorative {
+                    height: 20px;
+                    width: 100%;
+                    background-color: transparent;
+                    z-index: 11;
+
+                    position: relative;
+
+                    .dropdown__decorative-triangle {
+                        position: absolute;
+                        bottom: 0;
+                        right: 20px;
+
+
+                        width: 0; 
+                        height: 0; 
+                        border-left: 10px solid transparent;
+                        border-right: 10px solid transparent;
+                        border-bottom: 10px solid $dark-middle;
+                        
+                    }
+                    
+                }
+
+                .dropdown__button {
+                    right: 0;
+                    padding: 40px;
+                    background-color: $dark-middle;
+                    border-radius: 12px;
+                    z-index: 10;
+                    box-shadow: 0px 15px 46px -10px rgba(0, 0, 0, 0.60);
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width:530px) {
+    .header {
+        .container {
+
+            .header__user {
+                span {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width:360px) {
+    
+}
