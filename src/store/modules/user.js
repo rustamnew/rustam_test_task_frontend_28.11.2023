@@ -9,10 +9,14 @@ export default {
     },
     actions: {
         async registerUser(context, data) {
-            await axios.post('/api/reg', {
+            await axios.post('proxy.php', {
                 email: data.email,
                 password: data.password,
                 confirm_password: data.confirm_password,
+            }, {
+                headers: {
+                    'x-proxy-url': 'https://dist.nd.ru/api/reg'
+                }
             })
             .then((/*response*/) => {
                 this.dispatch("loginUser", {
@@ -27,15 +31,21 @@ export default {
         },
 
         async loginUser(context, data) {
-            await axios.post('/api/auth', {
+            await axios.post('proxy.php', {
                 email: data.email,
                 password: data.password
+            }, {
+                headers: {
+                    'x-proxy-url': 'https://dist.nd.ru/api/auth',
+                }
             })
-            .then((/*response*/) => {
+            .then((response) => {
+                localStorage.testUserAccessToken = response.data.accessToken
 
                 context.commit('updateUser', {
                     email: data.email,
-                    id: data.id
+                    id: data.id,
+                    token: response.data.accessToken
                 })
                 context.commit('updateErrorText', '')
 
@@ -49,7 +59,17 @@ export default {
         },
 
         async getUser(context) {
-            await axios.get('/api/auth')
+            let token = this.getters.getUserToken
+
+            if (!token && localStorage.testUserAccessToken) {
+                token = localStorage.testUserAccessToken
+            }
+            await axios.get('proxy.php', {
+                headers: {
+                    'x-proxy-url': 'https://dist.nd.ru/api/auth',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
             .then((response) => {
                 context.commit('updateUser', response.data)
             })
@@ -59,8 +79,22 @@ export default {
         },
 
         async logoutUser(context) {
-            await axios.delete('/api/auth')
+            let token = this.getters.getUserToken
+
+            if (!token && localStorage.testUserAccessToken) {
+                token = localStorage.testUserAccessToken
+            }
+
+            localStorage.testUserAccessToken = ''
+            
+            await axios.delete('/api/auth', {
+                headers: {
+                    'x-proxy-url': 'https://dist.nd.ru/api/auth',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
             .then((/*response*/) => {
+                
                 context.commit('updateUser', {})
             })
         }
@@ -79,6 +113,9 @@ export default {
         },
         getErrorText(state) {
             return state.errorText
+        },
+        getUserToken(state) {
+            return state.user.token
         }
     }
 }

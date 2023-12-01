@@ -7,9 +7,20 @@ export default {
     },
     actions: {
         async addNote(context, data) {
-            await axios.post('/api/notes', {
+            let token = this.getters.getUserToken
+
+            if (!token && localStorage.testUserAccessToken) {
+                token = localStorage.testUserAccessToken
+            }
+
+            await axios.post('proxy.php', {
                 title: data.title,
                 content: data.content
+            }, {
+                headers: {
+                    'x-proxy-url': 'https://dist.nd.ru/api/notes',
+                    'Authorization': `Bearer ${token}`
+                }
             })
             .then((/*response*/) => {
                 this.dispatch("fetchNotes")
@@ -21,7 +32,17 @@ export default {
         },
 
         async fetchNotes(/*context*/) {
-            await axios.get('/api/notes')
+            let token = this.getters.getUserToken
+
+            if (!token && localStorage.testUserAccessToken) {
+                token = localStorage.testUserAccessToken
+            }
+            await axios.get('proxy.php', {
+                headers: {
+                    'x-proxy-url': 'https://dist.nd.ru/api/notes',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
             .then((response) => {
                 this.commit("updateNotes", response.data)
             })
@@ -31,8 +52,18 @@ export default {
         },
 
         async removeNote(context, id) {
-            console.log(`/api/notes/${id}`)
-            await axios.delete(`/api/notes/${id}`)
+            let token = this.getters.getUserToken
+
+            if (!token && localStorage.testUserAccessToken) {
+                token = localStorage.testUserAccessToken
+            }
+
+            await axios.delete(`proxy.php`, {
+                headers: {
+                    'x-proxy-url': `https://dist.nd.ru/api/notes/${id}`,
+                    'Authorization': `Bearer ${token}`
+                }
+            })
             .then((/*response*/) => {
                 this.dispatch("fetchNotes")
             })
@@ -49,6 +80,6 @@ export default {
     getters: {
         getNotes(state) {
             return state.notes
-        }
+        },
     }
 }
